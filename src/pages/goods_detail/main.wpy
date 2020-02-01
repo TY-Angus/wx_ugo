@@ -1,0 +1,116 @@
+<template>
+  <view>
+    <!-- 商品详情页 -->
+    <swiper indicator-dots circular autoplay>
+      <block wx:for="{{goodsInfo.pics}}" wx:key="index">
+        <swiper-item>
+          <image src="{{item.pics_big}}" />
+        </swiper-item>
+      </block>
+    </swiper>
+
+    <!-- 商品信息 -->
+    <view class="goods_info">
+      <!-- 价格 名称 运费 -->
+      <view class="box1">
+        <view class="price">￥{{ goodsInfo.goods_price }}</view>
+        <view class="goods_name">
+          <view class="left">{{ goodsInfo.goods_name }}</view>
+          <view class="right">
+            <van-icon name="star-o" />
+            <view>收藏</view>
+          </view>
+        </view>
+        <view class="yunfei">快递: 免运费</view>
+      </view>
+      <view class="sep_line"></view>
+
+      <!-- 促销 已选 -->
+      <view class="box2">
+        <view>
+          <text>促销</text>
+          <text>满300元减30元</text>
+        </view>
+        <view>
+          <text>已选</text>
+          <text>黑色/s/1件</text>
+        </view>
+      </view>
+      <view class="sep_line"></view>
+
+      <view class="box3"></view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+import mix from '@/mixins/goods_detail/main.js'
+export default class extends wepy.page {
+  config = {
+    navigationBarTitleText: '商品详情'
+  }
+  mixins = [mix]
+}
+</script>
+
+<style lang="less">
+swiper {
+  height: 750rpx;
+  image {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.goods_info {
+  .sep_line {
+    border-bottom: 15rpx solid #efefef;
+  }
+  .box1 {
+    padding: 0 10rpx;
+    .price {
+      font-size: 40rpx;
+      color: red;
+      margin: 20rpx 0;
+    }
+    .goods_name {
+      display: flex;
+      justify-content: space-between;
+      .left {
+        padding-right: 40rpx;
+        font-size: 26rpx;
+      }
+      .right {
+        width: 200rpx;
+        text-align: center;
+        border-left: 1rpx solid #ccc;
+        > view {
+          font-size: 20rpx;
+        }
+      }
+    }
+    .yunfei {
+      font-size: 26rpx;
+      color: #666;
+      font-weight: bold;
+      line-height: 80rpx;
+    }
+  }
+
+  .box2 {
+    font-size: 24rpx;
+    padding: 0 10rpx;
+    > view {
+      line-height: 80rpx;
+      text:nth-child(1) {
+        margin-right: 20rpx;
+      }
+      text:nth-child(2) {
+        color: #666;
+      }
+    }
+  }
+}
+</style>
