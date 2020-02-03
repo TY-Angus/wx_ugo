@@ -66,23 +66,75 @@ export default class extends wepy.app {
       ]
     },
 
-    // 引用并注册全局组件
+    // 引用并注册全局组件 注意路径
     usingComponents: {
+      // 轮播图组件
       'van-sidebar': './assets/vant/sidebar/index',
       'van-sidebar-item': './assets/vant/sidebar-item/index',
+      // 布局相关组件
       'van-row': './assets/vant/row/index',
       'van-col': './assets/vant/col/index',
+      // 搜索框组件
       'van-search': './assets/vant/search/index',
+      // 单元格组件
       'van-cell': './assets/vant/cell/index',
       'van-cell-group': './assets/vant/cell-group/index',
+      // 图标
       'van-icon': './assets/vant/icon/index',
+      // tag标签
       'van-tag': './assets/vant/tag/index',
-      'van-card': './assets/vant/card/index'
+      // 商品卡片组件
+      'van-card': './assets/vant/card/index',
+      // tab 标签页
+      'van-tab': './assets/vant/tab/index',
+      'van-tabs': './assets/vant/tabs/index',
+      // 把HTML 代码转换成wxml 代码的插件
+      wxparse: './assets/wxparse/wxparse',
+      // 商品导航组件
+      'van-goods-action': './assets/vant/goods-action/index',
+      'van-goods-action-icon': './assets/vant/goods-action-icon/index',
+      'van-goods-action-button': './assets/vant/goods-action-button/index'
     }
   }
 
+  // 存储全局共享的数据
+  // 只需要通过 this.$parent.globalData 就可以拿到这个全局共享的对象
   globalData = {
-    userInfo: null
+    // 全局的购物车列表
+    cart: []
+  }
+
+  // 自定义一个把商品添加到购物车列表中的全局方法
+  addGoodsToCart(goods) {
+    const i = this.globalData.cart.findIndex(item => item.id === goods.goods_id)
+    if (i !== -1) {
+      this.globalData.cart[i].count++
+      this.saveCartToStorage()
+      return
+    }
+    // 梳理出来的商品信息对象
+    const info = {
+      // 商品id
+      id: goods.goods_id,
+      // 名称
+      name: goods.goods_name,
+      // 图片
+      pic: goods.goods_small_logo,
+      // 价格
+      price: goods.goods_price,
+      // 次数
+      count: 1,
+      // 是否选中
+      isCheck: true
+    }
+    // 存储到购物车列表
+    this.globalData.cart.push(info)
+    this.saveCartToStorage()
+  }
+
+  // 保存购物车列表到本地
+  saveCartToStorage() {
+    wepy.setStorageSync('cart', this.globalData.cart)
   }
 
   constructor() {
@@ -122,6 +174,8 @@ export default class extends wepy.app {
 
   onLaunch() {
     console.log('小程序启动了')
+    // 获取本地购物车列表
+    this.globalData.cart = wepy.getStorageSync('cart') || []
   }
 }
 </script>
