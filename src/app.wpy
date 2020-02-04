@@ -93,7 +93,15 @@ export default class extends wepy.app {
       // 商品导航组件
       'van-goods-action': './assets/vant/goods-action/index',
       'van-goods-action-icon': './assets/vant/goods-action-icon/index',
-      'van-goods-action-button': './assets/vant/goods-action-button/index'
+      'van-goods-action-button': './assets/vant/goods-action-button/index',
+      // 步进器组件
+      'van-stepper': './assets/vant/stepper/index',
+      // 复选框组件
+      'van-checkbox': './assets/vant/checkbox/index',
+      // 滑动单元格组件
+      'van-swipe-cell': './assets/vant/swipe-cell/index',
+      // 提交订单栏组件
+      'van-submit-bar': './assets/vant/submit-bar/index'
     }
   }
 
@@ -106,6 +114,7 @@ export default class extends wepy.app {
 
   // 自定义一个把商品添加到购物车列表中的全局方法
   addGoodsToCart(goods) {
+    console.log(1)
     const i = this.globalData.cart.findIndex(item => item.id === goods.goods_id)
     if (i !== -1) {
       this.globalData.cart[i].count++
@@ -135,6 +144,39 @@ export default class extends wepy.app {
   // 保存购物车列表到本地
   saveCartToStorage() {
     wepy.setStorageSync('cart', this.globalData.cart)
+  }
+
+  // 更新商品的数量
+  updataGoodsCount(id, count) {
+    console.log(1)
+    const i = this.globalData.cart.findIndex(item => item.id === id)
+    if (i !== -1) {
+      this.globalData.cart[i].count = count
+    }
+
+    this.saveCartToStorage()
+  }
+
+  // 更新商品选中状态值
+  updataGoodsStatus(id, isCheck) {
+    console.log(1)
+    const i = this.globalData.cart.findIndex(item => item.id === id)
+    if (i !== -1) {
+      this.globalData.cart[i].isCheck = isCheck
+    }
+
+    this.saveCartToStorage()
+  }
+
+  // 删除商品
+  removeGoodsById(id) {
+    console.log(1)
+    const i = this.globalData.cart.findIndex(item => item.id === id)
+    if (i !== -1) {
+      this.globalData.cart.splice(i, 1)
+    }
+
+    this.saveCartToStorage()
   }
 
   constructor() {
