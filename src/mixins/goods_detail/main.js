@@ -57,6 +57,7 @@ export default class extends wepy.mixin {
 
   // 计算属性节点
   computed = {
+    // 地址的字符串
     addressStr() {
       if (this.addressInfo === null) {
         return '请选择收货地址'
@@ -65,6 +66,11 @@ export default class extends wepy.mixin {
       const str =
         addr.provinceName + addr.cityName + addr.countyName + addr.detailInfo
       return str
+    },
+
+    // 所有已经勾选的商品的数量
+    total() {
+      return this.$parent.globalData.total
     }
   }
 }

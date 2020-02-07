@@ -14,7 +14,9 @@ export default class extends wepy.mixin {
       // 当前的value值e.detail
       // 当前的id值e.target.dataset.id
       console.log(e.detail, e.target.dataset.id)
-      this.$parent.updataGoodsCount(e.target.dataset.id, e.detail)
+      const id = e.target.dataset.id
+      const value = e.detail
+      this.$parent.updataGoodsCount(id, value)
     },
 
     // 监听复选框发生变化的事件
@@ -28,6 +30,11 @@ export default class extends wepy.mixin {
     // 监听删除商品的事件
     close(id) {
       this.$parent.removeGoodsById(id)
+    },
+
+    // 监听全选框值的改变的事件
+    onFullCheckChanged(e) {
+      this.$parent.updataAllGoodsStatus(e.detail)
     }
   }
 
@@ -37,6 +44,30 @@ export default class extends wepy.mixin {
       if (this.cart.length <= 0) {
         return true
       }
+      return false
+    },
+
+    // 总价格 单位是分
+    amount() {
+      let total = 0
+      this.cart.forEach(x => {
+        if (x.isCheck) {
+          total += x.price * x.count
+        }
+      })
+      return total * 100
+    },
+
+    // 是否全选
+    idFullChecked() {
+      const allCount = this.cart.length
+      let c = 0
+      this.cart.forEach(x => {
+        if (x.isCheck) {
+          c++
+        }
+      })
+      if (allCount === c) return true
       return false
     }
   }

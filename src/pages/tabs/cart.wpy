@@ -46,15 +46,16 @@
 
       <!-- 提交订单栏 -->
       <van-submit-bar
-        price="{{ 3050 }}"
+        price="{{ amount }}"
         button-text="提交订单"
         bind:submit="onClickButton"
         tip="{{ false}}"
       >
         <van-checkbox
-          value="{{ true }}"
+          value="{{ idFullChecked }}"
           checked-color="#d81e06"
           class="fullCheck"
+          bind:change = "onFullCheckChanged"
         >
           全选
         </van-checkbox>

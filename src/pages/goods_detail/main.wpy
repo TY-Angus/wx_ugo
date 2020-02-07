@@ -74,6 +74,7 @@
         text="购物车"
         url="/pages/tabs/cart"
         link-type="switchTab"
+        info="{{total}}"
       />
       <van-goods-action-button
         text="加入购物车"
