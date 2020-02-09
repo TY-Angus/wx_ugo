@@ -16,7 +16,11 @@ export default class extends wepy.app {
       // 商品详情页
       'pages/goods_detail/main',
       // 商品列表页
-      'pages/goods_list'
+      'pages/goods_list',
+      // 提交订单页
+      'pages/order',
+      // 订单列表页
+      'pages/orderList'
     ],
     window: {
       backgroundTextStyle: 'dark',
@@ -101,7 +105,9 @@ export default class extends wepy.app {
       // 滑动单元格组件
       'van-swipe-cell': './assets/vant/swipe-cell/index',
       // 提交订单栏组件
-      'van-submit-bar': './assets/vant/submit-bar/index'
+      'van-submit-bar': './assets/vant/submit-bar/index',
+      // 按钮组件
+      'van-button': './assets/vant/button/index'
     }
   }
 
@@ -223,6 +229,10 @@ export default class extends wepy.app {
         wepy.showLoading({
           title: '数据加载中...'
         })
+        // 在请求头里面携带token值
+        p.header = {
+          Authorization: wepy.getStorageSync('token')
+        }
         // 必须返回OBJECT参数对象，否则无法发送请求到服务端
         return p
       },

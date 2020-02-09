@@ -35,6 +35,17 @@ export default class extends wepy.mixin {
     // 监听全选框值的改变的事件
     onFullCheckChanged(e) {
       this.$parent.updataAllGoodsStatus(e.detail)
+    },
+
+    // 监听提交订单的事件
+    submitOrder() {
+      if (this.amount <= 0) {
+        return wepy.baseToast('订单不能为空')
+      }
+
+      wepy.navigateTo({
+        url: '/pages/order'
+      })
     }
   }
 

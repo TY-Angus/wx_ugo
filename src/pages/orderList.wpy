@@ -1,0 +1,12 @@
+<template>
+  <view>订单列表页面</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class extends wepy.page {
+  config = {}
+}
+</script>
+
+<style lang="less"></style>
