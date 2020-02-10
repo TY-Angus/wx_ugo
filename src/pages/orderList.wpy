@@ -1,11 +1,41 @@
 <template>
-  <view>订单列表页面</view>
+  <view>
+    <van-tabs active="{{ active }}" bind:change="tabChanged">
+      <van-tab title="全部">
+        <!-- wepy框架提供的组件repeat -->
+        <repeat for="{{allOrderList}}" key="index">
+          <order-item :order="item"></order-item>
+        </repeat>
+      </van-tab>
+
+      <van-tab title="待付款">
+        <repeat for="{{waitOrderList}}" key="index">
+          <order-item :order="item"></order-item>
+        </repeat>
+      </van-tab>
+
+      <van-tab title="已付款">
+        <repeat for="{{finishOrderList}}" key="index">
+          <order-item :order="item"></order-item>
+        </repeat>
+      </van-tab>
+    </van-tabs>
+  </view>
 </template>
 
 <script>
 import wepy from 'wepy'
+import mix from '@/mixins/orderList.js'
+// 导入自定义的组件
+import orderItem from '@/components/orderItem'
 export default class extends wepy.page {
-  config = {}
+  config = {
+    navigationBarTitleText: '订单列表'
+  }
+  mixins = [mix]
+  components = {
+    'order-item': orderItem
+  }
 }
 </script>
 
