@@ -206,6 +206,7 @@ export default class extends wepy.app {
         c += item.count
       }
     })
+    console.log(c)
     this.globalData.total = c
     const res = await wepy
       .setTabBarBadge({

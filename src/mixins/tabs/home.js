@@ -12,7 +12,9 @@ export default class extends wepy.mixin {
     this.getCateItems()
     this.getFloorData()
   }
-
+  onShow() {
+    this.$parent.renderCartBadge()
+  }
   // 获取轮播图数据
   async getSwiperData() {
     const { data } = await wepy.get('/home/swiperdata')

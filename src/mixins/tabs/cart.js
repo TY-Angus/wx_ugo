@@ -8,6 +8,9 @@ export default class extends wepy.mixin {
   onLoad() {
     this.cart = this.$parent.globalData.cart
   }
+  onShow() {
+    this.$parent.renderCartBadge()
+  }
   methods = {
     // 监听步进器变化的事件
     countChanged(e) {
